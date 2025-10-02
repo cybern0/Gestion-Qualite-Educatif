@@ -1,5 +1,6 @@
-using  QUALITE.Models.RegularEntity;
-//using 
+using System.ComponentModel.DataAnnotations;
+using QUALITE.Models.RegularEntity;
+ 
 namespace QUALITE.Models.PrincipalEntity;
 
 public class Personnel

@@ -1,4 +1,4 @@
-
+using System.ComponentModel.DataAnnotations;
 using  QUALITE.Models.PrincipalEntity;
 using  QUALITE.Models.RegularEntity;
 namespace QUALITE.Models.WeakEntity;

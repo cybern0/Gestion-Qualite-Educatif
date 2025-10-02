@@ -1,6 +1,8 @@
 using  QUALITE.Models.RegularEntity;
 namespace QUALITE.Models.PrincipalEntity;
 
+using System.ComponentModel.DataAnnotations;
+
 public class Etablissement
 {
 	[Required(ErrorMessage ="Code Etablissement obligatoire")]

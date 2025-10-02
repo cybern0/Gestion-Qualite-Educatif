@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export class MuliGrade extends Component {
-  static displayName = MuliGrade.name;
+export class MultiGrade extends Component {
+  static displayName = MultiGrade.name;
 
   constructor(props) {
     super(props);
@@ -51,7 +51,7 @@ export class MuliGrade extends Component {
     
     let contents = this.state.loading ? 
       <p><em>Loading...</em></p> : 
-        MuliGrade.renderetablissementsTable(this.state.etablissements);
+        MultiGrade.renderetablissementsTable(this.state.etablissements);
     return (
       <>
       <div class='row'>

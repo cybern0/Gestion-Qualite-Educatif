@@ -11,7 +11,7 @@ export class Home extends Component {
 
   // componentDidMount est herité de la class Component, ex: _ready()
   componentDidMount() {
-    this.fecthEtabData();
+    this.fetchEtabData();
   }
 
   static renderetablissementsTable(etablissements) {
@@ -21,25 +21,25 @@ export class Home extends Component {
           <tr>
             <th>CODE_ETAB</th>
             <th>ETABLISSEMENT</th>
-            <th>Taux de réussite aux examens</th>
+            {/* <th>Taux de réussite aux examens</th>
             <th>Ratio Elève/Maître </th>
             <th>Ratio Elève/Salle </th>
             <th>% d’Elèves en classe multigrade </th>
             <th>Nombre de manuels/élève</th>
-            <th>Nombre d’élèves/Place assise</th>
+            <th>Nombre d’élèves/Place assise</th> */}
           </tr>
         </thead>
         <tbody>
           {etablissements.map(etab =>
-            <tr key={etab.code_etab}>
-              <td>{etab.code_etab}</td>
-              <td>{etab.nom_etab}</td>
-              <td>{etab.examen}</td>
+            <tr key={etab.codeEtab}>
+              <td>{etab.codeEtab}</td>
+              <td>{etab.noM_ETAB}</td>
+              {/* <td>{etab.examen}</td>
               <td>{etab.rem}</td>
               <td>{etab.res}</td>
               <td>{etab.multi_grade}</td>
               <td>{etab.manuel}</td>
-              <td>{etab.places}</td>
+              <td>{etab.places}</td> */}
             </tr>
           )}
         </tbody>
@@ -59,7 +59,7 @@ export class Home extends Component {
       </div>
       <div class='row'>
         <div class="col-9">
-          {contents && this.setState({etablissements: [], loading: true})}  
+          {contents}  
         </div>
         <div class="col-3">
           <p>World</p>
@@ -69,9 +69,12 @@ export class Home extends Component {
     );
   }
   
-  async fecthEtabData() {
-    const response = await axios.get('etab/examen');
-    const data = await response.json();
-    this.setState({ etablissements: data, loading: false });
+  async fetchEtabData() {
+        const response = await axios.get('etab/examen');
+        if (response.status === 200) {
+          this.setState({ etablissements: response.data, loading: false });
+        } else {
+          this.setState({ etablissements: [], loading: false });
+        }
   }
 }
