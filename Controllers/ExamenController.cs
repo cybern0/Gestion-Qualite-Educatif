@@ -4,24 +4,24 @@ namespace QUALITE.Controllers;
 
 [ApiController]
 [Route("etab")]
-public class WeatherForecastController : ControllerBase
+public class ExamenController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<ExamenController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public ExamenController(ILogger<ExamenController> logger)
     {
         _logger = logger;
     }
 
     [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<Examen> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        return Enumerable.Range(1, 5).Select(index => new Examen
         {
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),
@@ -30,9 +30,9 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
     [HttpGet("examen")]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<Examen> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        return Enumerable.Range(1, 5).Select(index => new Examen
         {
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),
