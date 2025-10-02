@@ -3,6 +3,7 @@ namespace QUALITE.Models.PrincipalEntity;
 
 public class Etablissement
 {
+	[Required(ErrorMessage ="Code Etablissement obligatoire")]
 	public int CodeEtab {get;set;}
 	public int CodeSecteur {get;set;}
 	public Secteur? Secteur {get;set;}

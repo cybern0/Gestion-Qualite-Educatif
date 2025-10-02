@@ -4,6 +4,7 @@ namespace QUALITE.Models.PrincipalEntity;
 
 public class Personnel
 {
+	[Required(ErrorMessage ="CIN obligatoire")]
 	public int CIN {get;set;}
 	public int CODE_ETAB {get;set;}
 	public Etablissement? Etablissement {get;set;}

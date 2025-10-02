@@ -5,9 +5,12 @@ namespace QUALITE.Models.WeakEntity;
 
 public class G1
 {
+	[Required(ErrorMessage ="Code G1 obligatoire")]
 	public int Code {get;set;}
+	[Required(ErrorMessage ="Code Etablissement obligatoire")]
 	public int CodeEtab {get;set;}
     public Etablissement? Etablissement {get;set;}
+	[Required(ErrorMessage ="Code FPE obligatoire")]
 	public int CodeFpe {get;set;}
     public ModelFpe? ModelFpe {get;set;}
     public int EEC_SECTION { get; set; }
