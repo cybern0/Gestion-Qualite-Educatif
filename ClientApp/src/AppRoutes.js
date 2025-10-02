@@ -1,5 +1,9 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
+import { REM } from "./components/REM";
+import { RES } from "./components/RES";
+import { MultiGrade } from "./components/MultiGrade";
+import { Manuel } from "./components/Manuel";
+import { Places } from "./components/Places";
+import { Account } from "./components/Account";
 import { Home } from "./components/Home";
 
 const AppRoutes = [
@@ -8,12 +12,28 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/counter',
-    element: <Counter />
+    path: '/rem',
+    element: <REM />
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
+    path: '/res',
+    element: <RES />
+  },
+  {
+    path: '/multi-grade',
+    element: <MultiGrade />
+  },
+  {
+    path: '/manuel',
+    element: <Manuel />
+  },
+  {
+    path: '/places',
+    element: <Places />
+  },
+  {
+    path: '/account',
+    element: <Account />
   }
 ];
 
