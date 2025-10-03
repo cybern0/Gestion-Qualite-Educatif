@@ -31,9 +31,9 @@ export class Home extends Component {
         </thead>
         <tbody>
           {etablissements.map(etab =>
-            <tr key={etab.codeEtab}>
-              <td>{etab.codeEtab}</td>
-              <td>{etab.noM_ETAB}</td>
+            <tr key={etab.codeTypeSexe}>
+              <td>{etab.codeTypeSexe}</td>
+              <td>{etab.typeSexe}</td>
               {/* <td>{etab.examen}</td>
               <td>{etab.rem}</td>
               <td>{etab.res}</td>
