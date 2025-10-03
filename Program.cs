@@ -1,3 +1,6 @@
+
+using System.Data.SqlClient;
+using QUALITE;
 var builder = WebApplication.CreateBuilder(args);
 
 // Ajoutez ceci AVANT builder.Build()
@@ -37,5 +40,23 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");;
+
+SqlConnection sql = Connection.GetConnection();
+try
+{
+    sql.Open();
+    Console.WriteLine("Connection Opened");
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+finally
+{
+    sql.Close();
+    Console.WriteLine("Connection Closed");
+}
+
+
 
 app.Run();
