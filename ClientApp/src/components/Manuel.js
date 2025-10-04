@@ -11,7 +11,7 @@ export class Manuel extends Component {
 
   // componentDidMount est herité de la class Component, ex: _ready()
   componentDidMount() {
-    this.fecthEtabData();
+    // this.fecthEtabData();
   }
 
   static renderetablissementsTable(etablissements) {
@@ -70,7 +70,7 @@ export class Manuel extends Component {
   }
   
   async fecthEtabData() {
-    const response = await axios.get('etab');
+    const response = await axios.get('qualite/manuel');
     const data = await response.json();
     this.setState({ etablissements: data, loading: false });
   }

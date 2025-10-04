@@ -3,7 +3,7 @@ import { RES } from "./components/RES";
 import { MultiGrade } from "./components/MultiGrade";
 import { Manuel } from "./components/Manuel";
 import { Places } from "./components/Places";
-import { Account } from "./components/Account";
+import { NewFPE } from "./components/NewFPE";
 import { Home } from "./components/Home";
 
 const AppRoutes = [
@@ -32,8 +32,8 @@ const AppRoutes = [
     element: <Places />
   },
   {
-    path: '/account',
-    element: <Account />
+    path: '/new-fpe',
+    element: <NewFPE />
   }
 ];
 

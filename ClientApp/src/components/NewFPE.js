@@ -1,7 +1,41 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+// import sheetjs from 'sheetjs';
+// // body obj na {} na [] na les 2 cela depend des valeurs de retour du sheetJS
+// // mais peut importe vue que soi c'est { {}, {} } soi c'est { [], [] }
+//  const Etablissement ={
+//     codeEtab: 1
+// }
+//  const Personnel ={
+//     codeEtab: 1
+// }
+//  const M1 ={
+//     codeEtab: 1
+// }
+//  const E1 ={
+//     codeEtab: 1
+// }
+//  const E4 ={
+//     codeEtab: 1
+// }
+//  const K1 ={
+//     codeEtab: 1
+// }
+//  const G1 ={
+//     codeEtab: 1
+// }
+//  const J1 ={
+//     codeEtab: 1
+// }
+//  const L1 ={
+//     codeEtab: 1
+// }
+//  const ModefFpe ={
+//     codeEtab: 1
+// }
 
-export class Account extends Component {
-  static displayName = Account.name;
+export class NewFPE extends Component {
+  static displayName = NewFPE.name;
 
   constructor(props) {
     super(props);
@@ -9,7 +43,7 @@ export class Account extends Component {
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    // this.populateWeatherData();
   }
 
   static renderForecastsTable(forecasts) {
@@ -40,7 +74,7 @@ export class Account extends Component {
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : Account.renderForecastsTable(this.state.forecasts);
+      : NewFPE.renderForecastsTable(this.state.forecasts);
 
     return (
       <div>
@@ -52,8 +86,19 @@ export class Account extends Component {
   }
 
   async populateWeatherData() {
-    const response = await fetch('weatherforecast');
-    const data = await response.json();
-    this.setState({ forecasts: data, loading: false });
+    // const postBody = JSON.stringify({
+    //   etablissement: Etablissement,
+    //   personnel: Personnel,
+    //   m1: M1,
+    //   e1: E1,
+    //   e4: E4,
+    //   k1: K1,
+    //   g1: G1,
+    //   j1: J1,
+    //   l1: L1,
+    //   model_fpe: ModefFpe
+    // });
+    const response = await axios.post('qualite/model-fpe');
+    this.setState({ forecasts: response.data, loading: false });
   }
 }

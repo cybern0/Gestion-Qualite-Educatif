@@ -30,7 +30,7 @@ export class NavMenu extends Component {
           <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
             <ul className="navbar-nav flex-grow">
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/">Acceuil</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/rem">REM</NavLink>
@@ -39,7 +39,7 @@ export class NavMenu extends Component {
                 <NavLink tag={Link} className="text-dark" to="/res">RES</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/multi-grade">Multi-Grade</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/multi-grade">MultiGrade</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="text-dark" to="/manuel">Manuel</NavLink>
@@ -48,7 +48,7 @@ export class NavMenu extends Component {
                 <NavLink tag={Link} className="text-dark" to="/places">Places</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/account">Account</NavLink>
+                <NavLink tag={Link} className="text-dark" to="/new-fpe">Nouvelle FPE</NavLink>
               </NavItem>
             </ul>
           </Collapse>

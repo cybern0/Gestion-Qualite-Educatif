@@ -11,7 +11,7 @@ export class Home extends Component {
 
   // componentDidMount est herité de la class Component, ex: _ready()
   componentDidMount() {
-    this.fetchEtabData();
+    // this.fetchEtabData();
   }
 
   static renderetablissementsTable(etablissements) {
@@ -70,7 +70,7 @@ export class Home extends Component {
   }
   
   async fetchEtabData() {
-        const response = await axios.get('etab/examen');
+        const response = await axios.get('qualite');
         if (response.status === 200) {
           this.setState({ etablissements: response.data, loading: false });
         } else {
