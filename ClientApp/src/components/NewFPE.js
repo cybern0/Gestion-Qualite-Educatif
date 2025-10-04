@@ -138,7 +138,7 @@ export function NewFPE() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('/qualite/model-fpe', preparedPayload);
+      const response = await axios.post('qualite', preparedPayload);
       setSheetsSummary(prev => ({ ...prev, posted: true, response: response.data }));
     } catch (err) {
       console.error(err);
