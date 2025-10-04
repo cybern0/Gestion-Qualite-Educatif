@@ -3,8 +3,5 @@ namespace QUALITE.Models.DerivedEntity;
 
 public class Examen : Etablissement, Indicateur
 {
-    public int GetIndicateur()
-    {
-        return 1;
-    }
+    public int GetIndicateur{get;set;}
 }
