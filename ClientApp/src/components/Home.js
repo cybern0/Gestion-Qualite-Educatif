@@ -6,75 +6,130 @@ export class Home extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { etablissements: [], loading: true };
+    this.state = { 
+      etablissements: [], 
+      loading: true,
+      searchCisco: '',
+      searchNomEtab: '',
+      lastError: null
+    };
   }
 
-  // componentDidMount est herité de la class Component, ex: _ready()
   componentDidMount() {
-    // this.fetchEtabData();
+    this.fetchEtabData();
   }
 
   static renderetablissementsTable(etablissements) {
+    if (!etablissements || etablissements.length === 0) return <div>Aucune donnée disponible</div>;
+    const sample = etablissements.slice(0, 10);
+    const keysSet = new Set();
+    sample.forEach(r => Object.keys(r || {}).forEach(k => keysSet.add(k)));
+    const keys = Array.from(keysSet);
+
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
-          <tr>
-            <th>CODE_ETAB</th>
-            <th>ETABLISSEMENT</th>
-            {/* <th>Taux de réussite aux examens</th>
-            <th>Ratio Elève/Maître </th>
-            <th>Ratio Elève/Salle </th>
-            <th>% d’Elèves en classe multigrade </th>
-            <th>Nombre de manuels/élève</th>
-            <th>Nombre d’élèves/Place assise</th> */}
-          </tr>
+          <tr>{keys.map(k => <th key={k}>{k}</th>)}</tr>
         </thead>
         <tbody>
-          {etablissements.map(etab =>
-            <tr key={etab.codeTypeSexe}>
-              <td>{etab.codeTypeSexe}</td>
-              <td>{etab.typeSexe}</td>
-              {/* <td>{etab.examen}</td>
-              <td>{etab.rem}</td>
-              <td>{etab.res}</td>
-              <td>{etab.multi_grade}</td>
-              <td>{etab.manuel}</td>
-              <td>{etab.places}</td> */}
+          {etablissements.map((etab, idx) => (
+            <tr key={etab.CODE_ETAB || etab.code || idx}>
+              {keys.map(key => <td key={key}>{(etab && typeof etab[key] !== 'undefined') ? String(etab[key]) : ''}</td>)}
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
     );
   }
 
   render() {
-    
-    let contents = this.state.loading ? 
-      <p><em>Loading...</em></p> : 
-        Home.renderetablissementsTable(this.state.etablissements);
+    let contents = this.state.loading ? <p><em>Loading...</em></p> : Home.renderetablissementsTable(this.state.etablissements);
     return (
       <>
-      <div class='row'>
-        <h1 class='h1'>Taux de réussite aux examens</h1>
+      <div className='row'>
+        <h1 className='h1'>Taux de réussite aux examens</h1>
       </div>
-      <div class='row'>
-        <div class="col-9">
-          {contents}  
+
+      <div className='row mb-4'>
+        <div className='col-9'>
+          <div className='card p-3'>
+            <div className='mb-3 d-flex'>
+              <input className='form-control me-2' value={this.state.searchCisco} onChange={e => this.setState({ searchCisco: e.target.value })} placeholder='CISCO (code)' />
+              <button className='btn btn-outline-primary me-2' onClick={() => this.fetchByCisco()} disabled={!this.state.searchCisco}>Rechercher</button>
+              <input className='form-control me-2' value={this.state.searchNomEtab} onChange={e => this.setState({ searchNomEtab: e.target.value })} placeholder='Nom établissement' />
+              <button className='btn btn-outline-success' onClick={() => this.fetchByEtab()} disabled={!this.state.searchNomEtab}>Rechercher</button>
+              <button className='btn btn-secondary ms-3' onClick={() => this.fetchEtabData()}>Charger tout</button>
+            </div>
+
+            {this.state.lastError && <div className='alert alert-danger'>{this.state.lastError}</div>}
+
+            <div className='mt-3'>
+              {contents}
+            </div>
+          </div>
         </div>
-        <div class="col-3">
-          <p>World</p>
+
+        <div className='col-3'>
+          <div className='card p-3'>
+            <h5>Informations</h5>
+            <p>Nombre d'établissements: <strong>{this.state.etablissements.length}</strong></p>
+            <p>Chargement: {this.state.loading ? 'oui' : 'non'}</p>
+            <p>Dernière recherche: {this.state.searchCisco ? `CISCO ${this.state.searchCisco}` : (this.state.searchNomEtab ? `Nom: ${this.state.searchNomEtab}` : 'tout')}</p>
+          </div>
         </div>
       </div>
       </>
     );
   }
-  
+
   async fetchEtabData() {
-        const response = await axios.get('qualite');
-        if (response.status === 200) {
-          this.setState({ etablissements: response.data, loading: false });
-        } else {
-          this.setState({ etablissements: [], loading: false });
-        }
+    this.setState({ loading: true, lastError: null });
+    try {
+      const response = await axios.get('qualite');
+      if (response.status === 200) {
+        this.setState({ etablissements: response.data || [], loading: false });
+      } else {
+        this.setState({ etablissements: [], loading: false, lastError: `Status ${response.status}` });
+      }
+    } catch (err) {
+      console.error(err);
+      this.setState({ etablissements: [], loading: false, lastError: err?.message || 'Erreur réseau' });
+    }
+  }
+
+  async fetchByCisco() {
+    const code = this.state.searchCisco;
+    if (!code) return;
+    this.setState({ loading: true, lastError: null });
+    try {
+      const response = await axios.get(`qualite?cisco=${encodeURIComponent(code)}`);
+      if (response.status === 200) {
+        this.setState({ etablissements: response.data || [], loading: false });
+      } else {
+        this.setState({ etablissements: [], loading: false, lastError: `Status ${response.status}` });
+      }
+    } catch (err) {
+      console.error(err);
+      this.setState({ etablissements: [], loading: false, lastError: err?.message || 'Erreur réseau' });
+    }
+  }
+
+  async fetchByEtab() {
+    const name = this.state.searchNomEtab;
+    if (!name) return;
+    this.setState({ loading: true, lastError: null });
+    try {
+      const response = await axios.get(`qualite?nomEtab=${encodeURIComponent(name)}`);
+      if (response.status === 200) {
+        const data = response.data;
+        const arr = Array.isArray(data) ? data : [data];
+        this.setState({ etablissements: arr, loading: false });
+      } else {
+        this.setState({ etablissements: [], loading: false, lastError: `Status ${response.status}` });
+      }
+    } catch (err) {
+      console.error(err);
+      this.setState({ etablissements: [], loading: false, lastError: err?.message || 'Erreur réseau' });
+    }
   }
 }

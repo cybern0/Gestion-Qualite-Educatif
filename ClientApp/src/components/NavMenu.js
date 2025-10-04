@@ -1,59 +1,63 @@
-import React, { Component } from 'react';
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-//import './NavMenu.css';
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+export function NavMenu() {
+  const [open, setOpen] = useState(false);
 
-  constructor (props) {
-    super(props);
+  return (
+    <header className="bg-white border-b shadow mb-3">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="text-xl font-semibold text-gray-900">QUALITE</Link>
+          </div>
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
-  }
+          {/* desktop links */}
+          <div className="hidden sm:flex sm:space-x-6">
+            <Link to="/" className="text-gray-700 hover:text-gray-900">Acceuil</Link>
+            <Link to="/rem" className="text-gray-700 hover:text-gray-900">REM</Link>
+            <Link to="/res" className="text-gray-700 hover:text-gray-900">RES</Link>
+            <Link to="/multi-grade" className="text-gray-700 hover:text-gray-900">MultiGrade</Link>
+            <Link to="/manuel" className="text-gray-700 hover:text-gray-900">Manuel</Link>
+            <Link to="/places" className="text-gray-700 hover:text-gray-900">Places</Link>
+            <Link to="/new-fpe" className="text-gray-700 hover:text-gray-900">Nouvelle FPE</Link>
+          </div>
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
+          {/* mobile menu button */}
+          <div className="sm:hidden flex items-center">
+            <button
+              onClick={() => setOpen(!open)}
+              aria-expanded={open}
+              aria-label="Toggle navigation"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            >
+              <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                {open ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
 
-  render() {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
-          <NavbarBrand tag={Link} to="/">QUALITE</NavbarBrand>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-          <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-            <ul className="navbar-nav flex-grow">
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/">Acceuil</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/rem">REM</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/res">RES</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/multi-grade">MultiGrade</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/manuel">Manuel</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/places">Places</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/new-fpe">Nouvelle FPE</NavLink>
-              </NavItem>
-            </ul>
-          </Collapse>
-        </Navbar>
-      </header>
-    );
-  }
+        {/* mobile links */}
+        {open && (
+          <div className="sm:hidden mt-2 pb-4">
+            <div className="flex flex-col space-y-1">
+              <Link to="/" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">Acceuil</Link>
+              <Link to="/rem" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">REM</Link>
+              <Link to="/res" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">RES</Link>
+              <Link to="/multi-grade" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">MultiGrade</Link>
+              <Link to="/manuel" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">Manuel</Link>
+              <Link to="/places" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">Places</Link>
+              <Link to="/new-fpe" onClick={() => setOpen(false)} className="px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100">Nouvelle FPE</Link>
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
+  );
 }
+export default NavMenu;

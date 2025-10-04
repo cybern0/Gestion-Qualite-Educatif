@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QUALITE.Models.RegularEntity;
+using QUALITE.Models.;
 using QUALITE.Services;
 
 namespace QUALITE.Controllers;
 
 [ApiController]
-[Route("etab")]
+[Route("qualite")]
 public class ExamenController : ControllerBase
 {
     private static readonly List<Sexe> Sexes = ExamenServices.GetSexes();
@@ -17,7 +17,7 @@ public class ExamenController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("examen")]
+    [HttpGet]
     public IEnumerable<Sexe> Get()
     {
         return Sexes;
