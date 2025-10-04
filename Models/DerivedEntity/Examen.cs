@@ -1,10 +1,14 @@
 using QUALITE.Models.PrincipalEntity;
 namespace QUALITE.Models.DerivedEntity;
 
-public class Examen : Etablissement, Indicateur
+public class ExamenServices : Etablissement, Indicateur
 {
-    public int GetIndicateur()
-    {
-        return 1;
+    public int GetIndicateur 
+    { 
+        get;
+        set 
+        {
+            return 0;
+        } 
     }
 }
