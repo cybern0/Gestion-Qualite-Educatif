@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QUALITE.Models.;
+using QUALITE.Models.DerivedEntity;
 using QUALITE.Services;
 
 namespace QUALITE.Controllers;
@@ -8,7 +8,11 @@ namespace QUALITE.Controllers;
 [Route("qualite")]
 public class ExamenController : ControllerBase
 {
-    private static readonly List<Sexe> Sexes = ExamenServices.GetSexes();
+    private static readonly List<Examen> Examens = new List<Examen>
+    {
+        new Examen{ CodeEtab=1, },
+        new Examen{ CodeEtab=2, }
+    };//ExamenServices.GetSexes();
 
     private readonly ILogger<ExamenController> _logger;
 
@@ -18,8 +22,8 @@ public class ExamenController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Sexe> Get()
+    public IEnumerable<Examen> Get()
     {
-        return Sexes;
+        return Examens;
     }
 }
